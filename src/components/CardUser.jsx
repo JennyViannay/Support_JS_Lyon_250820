@@ -4,7 +4,7 @@ const CardUser = (props) => {
     return(
         <div className="container">
             <p>Nom : {props.name} </p>
-            <img src={props.image} alt=""/>
+            <img src={props.image} alt="" className="img-fluid"/>
         </div>
     )
 }

@@ -1,0 +1,38 @@
+1 : run npm install --save react-router-dom
+
+2 : create new component nav.jsx (or .js) for you menu and prepare your link as exemple : 
+const Nav = () => {
+    return (
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/about">About</a>
+                </li>
+            </ul>
+        </nav>
+    )
+}
+
+3 : in App.js =>  
+ - add 
+import { BrowserRouter as Router, Route } from "react-router-dom"
+
+- then in render() add your routing around main div of your app (here className="App") as following exemple :
+
+class App extends Component {
+	render() {
+		return (
+			<Router>
+				<div className="App">
+					<Nav />
+					<Route exact path='/' component={Home} />
+					<Route path='/about' component={About} />
+				</div>
+			</Router>	
+		);
+	}
+}
+

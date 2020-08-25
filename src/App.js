@@ -1,61 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
-import Form from './components/Form';
-import CardUser from './components/CardUser';
+// Routing
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+// Components 
+import Nav from './components/Nav';
+import Home from './components/Home';
+import About from './components/About';
 
 class App extends Component {
-	state = {
-		user : null,
-		isChecked : null,
-		selected : []
-	}
-	  
-	getUser = (e) => {
-		e.preventDefault()
-
-		//Recuperation des infos github via api et axios
-		axios.get(`https://api.github.com/users/${e.target.elements.userName.value}`)
-		.then((response) => {
-      		this.setState({
-        		user : response.data
-			  })
-		})
-		
-		// Traitement et recuperation des selected option by user
-		// tab de tous les select
-		const select = e.target.selectable;
-		// On boucle sur tous les select et on test si ils sont selected
-		const arrayFromSelected = []
-		for(let i = 0 ; i <= 4 ; i++){
-			if(select[i].selected){
-				// si c'est le cas alors je set state et garde les précedents selected
-				arrayFromSelected.push(select[i].value)
-			}
-		}
-		this.setState({
-			selected : arrayFromSelected
-		})
-
-		// Traitement checkbox
-		this.setState({
-			isChecked : e.target.checkbox.checked
-		})
-	}
-
 	render() {
-		console.log(this.state)
 		return (
-			<div className="App">
-				<Form getUser={this.getUser} />
-
-				{
-					this.state.user ?  
-					<CardUser name={this.state.user.name} image={this.state.user.avatar_url}/>
-					: 'Entrez un nom utilisateur'
-				}
-
-			</div>
+			<Router>
+				<div className="App">
+					<Nav />
+					<Route exact path='/' component={Home} />
+					<Route path='/about' component={About} />
+				</div>
+			</Router>	
 		);
 	}
 }
